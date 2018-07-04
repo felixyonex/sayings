@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+    <title>Login - Sayings</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/jumbotron.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 120px;
+        }
+        #errBox{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<% include header.ejs %>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row col-lg-6">
+        <h1>Login</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="用户名，可以是中文，不能和别人重复">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="密码，至少6位">
+            </div>
+            <button type="button" id="register" class="btn btn-default">Login</button>
+        </form>
+
+        <div class="alert alert-danger" role="alert" id="errBox"></div>
+    </div>
+</div>
+
+<hr>
+
+<footer>
+    <p>&copy; Company 2014</p>
+</footer>
+</div>
+<!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery-1.11.3.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $("input").focus(function(){
+        $("#errBox").fadeOut();
+    });
+   $("#register").click(function(){
+       //binding event to register button.
+       $.post("/dologin",{
+           "username" : $("#username").val(),
+           "password" : $("#password").val()
+       },function(result){
+           if(result == "1"){
+               //注册成功
+               alert("Successful login! Jump to Index Page.");
+               window.location = "/";
+           }else if(result == "-1"){
+               $("#errBox").fadeIn();
+               $("#errBox").html("Invalid username");
+           }else if(result == "-2"){
+               $("#errBox").fadeIn();
+               $("#errBox").html("Incorrect Password! Please try again!");
+           }
+       });
+   });
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!--这个页面是共享的，所有的页面都include这个页面-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Sayings in Class</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li <%if(active=="Index"){%> class="active" <%}%>><a href="/">All Sayings<span class="sr-only">(current)</span></a></li>
+                <%
+                if(login){
+                %>
+                    <li <%if(active=="my sayings"){%> class="active" <%}%>><a href="/user/<%= username %>">My Sayings</a></li>
+                <% } %>
+                <li <%if(active=="users list"){%> class="active" <%}%>><a href="/userlist">Users list</a></li>
+            </ul>
+            <%
+            if(login){
+            %>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>Welcome！<%= username %></a></li>
+                <li><a href="">Personal Settings</a></li>
+            </ul>
+            <%
+            }else{
+            %>
+            <ul class="nav navbar-nav navbar-right">
+                <li <%if(active=="Register"){%> class="active" <%}%>><a href="/register">Register</a></li>
+                <li <%if(active=="Login"){%> class="active" <%}%>><a href="/login">Login</a></li>
+            </ul>
+            <%
+            }
+            %>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</nav>
